@@ -24,6 +24,14 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello bhai'});
 });
 
+app.get('/api', (req,res) => {
+  let date = new Date();
+  res.json({
+    "unix": Date.now(),
+    "utc": date.toUTCString()
+  })
+})
+
 app.get('/api/:date', (req,res) => {
   let date = req.params.date;
   if (!isNaN(Date.parse(date))) {
@@ -36,12 +44,12 @@ app.get('/api/:date', (req,res) => {
     let intdate = parseInt(date);
     let dateobj = new Date(intdate)  
     res.json({
-      "unix": date,
+      "unix": parseInt(date),
       "utc": dateobj.toUTCString()
     })
   }else {
     res.json({
-      "error": "invalid url"
+      "error": "Invalid Date"
     })
   }
 })
